@@ -8,8 +8,10 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
+// TODO: use type from shared file
+// TODO: rename product to something else
 export const HeroParallax = ({
   products,
 }: {
@@ -110,11 +112,32 @@ export const Header = () => {
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
         Fullstack Software Engineer
         <br />
-        Frontend | Backend | Testing | Observability
+        Frontend | Backend | Testing | Observability | CI CD
       </p>
     </div>
   );
 };
+
+const useHoverState = () => {
+  const FILTER_ON = 'blur(3px)'
+  const FILTER_OFF = 'blur(0px)'
+
+  const [filter, setFilter] = useState(FILTER_ON)
+
+  const turnFilterOn = () => {
+    setFilter(FILTER_ON)
+  }
+
+  const turnFilterOff = () => {
+    setFilter(FILTER_OFF)
+  }
+
+  return {
+    filter,
+    turnFilterOn,
+    turnFilterOff
+  }
+}
 
 export const ProductCard = ({
   product,
@@ -127,6 +150,8 @@ export const ProductCard = ({
   };
   translate: MotionValue<number>;
 }) => {
+  const { filter, turnFilterOn, turnFilterOff } = useHoverState();
+
   return (
     <motion.div
       style={{
@@ -141,6 +166,7 @@ export const ProductCard = ({
       <Link
         href={product.link}
         className="block group-hover/product:shadow-2xl "
+        target="_blank"
       >
         <Image
           src={product.thumbnail}
@@ -148,6 +174,9 @@ export const ProductCard = ({
           width="600"
           className="object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.title}
+          style={{ filter }}
+          onMouseEnter={turnFilterOff}
+          onMouseLeave={turnFilterOn}
         />
       </Link>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
