@@ -3,6 +3,7 @@ import { BackgroundBeams } from './components/ui/background-beams';
 import { HeroParallax } from './components/ui/hero-parallax';
 
 export default function Home() {
+  // TODO: hide scrollbar
   return (
     <main>
       {/* TODO: rename products */}
