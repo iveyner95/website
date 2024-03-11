@@ -18,41 +18,9 @@ interface HeroParallaxProps {
 export const HeroParallax = ({
   previews,
 }: HeroParallaxProps) => {
-  const firstRow = previews.slice(0, 5);
-  const secondRow = previews.slice(5, 10);
-  const thirdRow = previews.slice(10, 15);
-  const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const { firstRow, secondRow, thirdRow } = useProcessedPreviews(previews)
+  const { ref, rotateX, translateX, translateXReverse, translateY, rotateZ, opacity } = useMotionControls();
 
-  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
-
-  const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
-    springConfig
-  );
-  const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
-    springConfig
-  );
-  const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig
-  );
-  const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig
-  );
-  const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
-    springConfig
-  );
-  const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
-    springConfig
-  );
   return (
     <div
       ref={ref}
@@ -134,6 +102,71 @@ const useHoverState = () => {
     filter,
     turnFilterOn,
     turnFilterOff
+  }
+}
+
+
+const useMotionControls = () => {
+  const ref = React.useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+
+  const translateX = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    springConfig
+  );
+
+  const translateXReverse = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    springConfig
+  );
+
+  const rotateX = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    springConfig
+  );
+
+  const opacity = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    springConfig
+  );
+
+  const rotateZ = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    springConfig
+  );
+
+  const translateY = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    springConfig
+  );
+
+  return {
+    ref,
+    rotateX,
+    translateX,
+    translateXReverse,
+    translateY,
+    rotateZ,
+    opacity
+  }
+}
+
+const useProcessedPreviews = (previews: Preview[]) => {
+  // TODO: randomize previews with lodash shuffle
+  const firstRow = previews.slice(0, 5);
+  const secondRow = previews.slice(5, 10);
+  const thirdRow = previews.slice(10, 15);
+
+  return {
+    firstRow,
+    secondRow,
+    thirdRow
   }
 }
 
