@@ -9,21 +9,18 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { Preview } from "../../types";
 
-// TODO: use type from shared file
-// TODO: rename product to something else
+interface HeroParallaxProps {
+  previews: Preview[];
+}
+
 export const HeroParallax = ({
-  products,
-}: {
-  products: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  }[];
-}) => {
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
+  previews,
+}: HeroParallaxProps) => {
+  const firstRow = previews.slice(0, 5);
+  const secondRow = previews.slice(5, 10);
+  const thirdRow = previews.slice(10, 15);
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -72,29 +69,30 @@ export const HeroParallax = ({
         className=""
       >
         <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
-          {firstRow.map((product) => (
+          {/* Rename product to preview */}
+          {firstRow.map((preview) => (
             <ProductCard
-              product={product}
+              preview={preview}
               translate={translateX}
-              key={product.title}
+              key={preview.title}
             />
           ))}
         </motion.div>
         <motion.div className="flex flex-row  mb-20 space-x-20 ">
-          {secondRow.map((product) => (
+          {secondRow.map((preview) => (
             <ProductCard
-              product={product}
+              preview={preview}
               translate={translateXReverse}
-              key={product.title}
+              key={preview.title}
             />
           ))}
         </motion.div>
         <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((product) => (
+          {thirdRow.map((preview) => (
             <ProductCard
-              product={product}
+              preview={preview}
               translate={translateX}
-              key={product.title}
+              key={preview.title}
             />
           ))}
         </motion.div>
@@ -140,14 +138,10 @@ const useHoverState = () => {
 }
 
 export const ProductCard = ({
-  product,
+  preview,
   translate,
 }: {
-  product: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  };
+  preview: Preview
   translate: MotionValue<number>;
 }) => {
   const { filter, turnFilterOn, turnFilterOff } = useHoverState();
@@ -160,20 +154,20 @@ export const ProductCard = ({
       whileHover={{
         y: -20,
       }}
-      key={product.title}
+      key={preview.title}
       className="group/product h-96 w-[30rem] relative flex-shrink-0"
     >
       <Link
-        href={product.link}
+        href={preview.link}
         className="block group-hover/product:shadow-2xl "
         target="_blank"
       >
         <Image
-          src={product.thumbnail}
+          src={preview.thumbnail}
           height="600"
           width="600"
           className="object-cover object-left-top absolute h-full w-full inset-0"
-          alt={product.title}
+          alt={preview.title}
           style={{ filter }}
           onMouseEnter={turnFilterOff}
           onMouseLeave={turnFilterOn}
@@ -181,7 +175,7 @@ export const ProductCard = ({
       </Link>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
       <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
-        {product.title}
+        {preview.title}
       </h2>
     </motion.div>
   );
