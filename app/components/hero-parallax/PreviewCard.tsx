@@ -1,21 +1,23 @@
 
+import { useHoverFilterState } from '@/app/hooks/useHoverFilterState';
 import {
   MotionValue,
   motion
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Preview } from "../../types";
+
+interface PreviewCardProps {
+  preview: Preview
+  translate: MotionValue<number>;
+}
 
 export const PreviewCard = ({
   preview,
   translate,
-}: {
-  preview: Preview
-  translate: MotionValue<number>;
-}) => {
-  const { filter, turnFilterOn, turnFilterOff } = useHoverState();
+}: PreviewCardProps) => {
+  const { filter, turnFilterOn, turnFilterOff } = useBrightnessHoverState();
 
   return (
     <motion.div
@@ -52,19 +54,11 @@ export const PreviewCard = ({
   );
 };
 
-const useHoverState = () => {
-  const FILTER_ON = 'blur(3px)'
-  const FILTER_OFF = 'blur(0px)'
+const useBrightnessHoverState = () => {
+  const FILTER_ON = 'brightness(0.75)'
+  const FILTER_OFF = 'brightness(1)'
 
-  const [filter, setFilter] = useState(FILTER_ON)
-
-  const turnFilterOn = () => {
-    setFilter(FILTER_ON)
-  }
-
-  const turnFilterOff = () => {
-    setFilter(FILTER_OFF)
-  }
+  const { filter, turnFilterOn, turnFilterOff } = useHoverFilterState(FILTER_ON, FILTER_ON, FILTER_OFF)
 
   return {
     filter,

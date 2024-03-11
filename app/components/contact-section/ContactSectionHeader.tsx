@@ -1,4 +1,6 @@
-import React from 'react';
+"use client"
+import { EmailIcon } from './EmailIcon';
+import { LinkedInIcon } from './LinkedInIcon';
 
 export const ContactSectionHeader = () => {
   return (
@@ -14,9 +16,10 @@ export const ContactSectionHeader = () => {
         </p>
       </div>
       <div className='my-8'>
-        {/* TODO use icons instead of these two */}
-        <p className="dark:text-neutral-200 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
-          <a href='https://www.linkedin.com/in/igorveyner/' target="_blank">LinkedIn</a> | <a href="mailto: igorveyner95@gmail.com">📧</a>
+        <p className="dark:text-neutral-200 max-w-lg mx-auto my-2 flex justify-center relative z-10">
+          <LinkedInIcon />
+          |
+          <EmailIcon />
         </p>
       </div>
     </div>
