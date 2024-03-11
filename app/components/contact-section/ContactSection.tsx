@@ -1,4 +1,4 @@
-import { BackgroundBeams } from '../ui/background-beams';
+import { BackgroundBeams } from './BackgroundBeams';
 import { ContactSectionHeader } from './ContactSectionHeader';
 
 
