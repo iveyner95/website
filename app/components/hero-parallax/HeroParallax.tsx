@@ -97,7 +97,6 @@ const useMotionControls = () => {
 }
 
 const useProcessedPreviews = (previews: Preview[]) => {
-  // TODO: randomize previews with lodash shuffle
   const firstRow = previews.slice(0, 5);
   const secondRow = previews.slice(5, 10);
   const thirdRow = previews.slice(10, 15);

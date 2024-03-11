@@ -1,6 +1,7 @@
+import _ from 'lodash'
 import { Preview } from '../types'
 
-export const previews: Preview[] = [
+const rawPreviews: Preview[] = [
   {
     title: "React",
     link: "https://react.dev/",
@@ -77,3 +78,5 @@ export const previews: Preview[] = [
     thumbnail: "/unleash.png"
   },
 ]
+
+export const previews = _.shuffle(rawPreviews)
