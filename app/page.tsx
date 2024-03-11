@@ -1,7 +1,7 @@
 
 import { previews } from './__fixtures__/previews';
+import { HeroParallax } from './components/hero-parallax';
 import { BackgroundBeams } from './components/ui/background-beams';
-import { HeroParallax } from './components/ui/hero-parallax';
 
 export default function Home() {
   // TODO: hide scrollbar
