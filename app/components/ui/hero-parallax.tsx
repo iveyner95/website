@@ -24,7 +24,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[250vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -36,38 +36,32 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
-          {/* Rename product to preview */}
-          {firstRow.map((preview) => (
-            <ProductCard
-              preview={preview}
-              translate={translateX}
-              key={preview.title}
-            />
-          ))}
-        </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
-          {secondRow.map((preview) => (
-            <ProductCard
-              preview={preview}
-              translate={translateXReverse}
-              key={preview.title}
-            />
-          ))}
-        </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((preview) => (
-            <ProductCard
-              preview={preview}
-              translate={translateX}
-              key={preview.title}
-            />
-          ))}
-        </motion.div>
+        <HeroParallaxRow previews={firstRow} translate={translateX} className="flex flex-row-reverse space-x-reverse space-x-20 mb-20" />
+        <HeroParallaxRow previews={secondRow} translate={translateXReverse} className="flex flex-row  mb-20 space-x-20" />
+        <HeroParallaxRow previews={thirdRow} translate={translateX} className="flex flex-row-reverse space-x-reverse space-x-20" />
       </motion.div>
     </div>
   );
 };
+
+interface HeroParallaxRowProps extends HeroParallaxProps {
+  className: string;
+  translate: MotionValue<any>
+}
+
+const HeroParallaxRow = ({ previews, className, translate }: HeroParallaxRowProps) => {
+  return (
+    <motion.div className={className}>
+      {previews.map((preview) => (
+        <ProductCard
+          preview={preview}
+          translate={translate}
+          key={preview.title}
+        />
+      ))}
+    </motion.div>
+  )
+}
 
 export const Header = () => {
   return (
