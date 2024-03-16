@@ -1,21 +1,11 @@
-import { ImageIcon } from '../ImageIcon';
-import { useGrayscaleIconState } from "./useGrayscaleIconState";
+import { GrayscaleFilteredImageIcon } from './GrayscaleFilteredImageIcon';
 
 export const EmailIcon = () => {
-  const {
-    filter,
-    turnFilterOn,
-    turnFilterOff
-  } = useGrayscaleIconState();
-
   return (
-    <a href="mailto:igorveyner95@gmail.com" className="px-4" style={{ filter }}>
-      <ImageIcon
-        src="/mail.png"
-        alt="email"
-        onMouseEnter={turnFilterOff}
-        onMouseLeave={turnFilterOn}
-      />
-    </a>
+    <GrayscaleFilteredImageIcon
+      href="mailto:igorveyner95@gmail.com"
+      src="/mail.png"
+      alt="email"
+    />
   )
 }
