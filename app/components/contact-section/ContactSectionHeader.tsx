@@ -12,7 +12,7 @@ export const ContactSectionHeader = () => {
       </div>
       <div className='my-8'>
         <p className="dark:text-neutral-200 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
-          Let's connect and explore how we can collaborate together!
+          {"Let's connect and explore how we can collaborate together!"}
         </p>
       </div>
       <div className='my-8'>
